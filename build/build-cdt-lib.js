@@ -121,6 +121,9 @@ for (const [inFilename, outFilename] of Object.entries(files)) {
 
   for (const [code, replacement] of Object.entries(rawCodeToReplace)) {
     sourceFilePrinted = sourceFilePrinted.replace(code, replacement);
+    if (sourceFilePrinted.includes(code)) {
+      throw new Error(`expected only one occurrence for: ${code}`);
+    }
   }
 
   const modifiedFile = [
