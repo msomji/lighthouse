@@ -87,7 +87,7 @@ class JSBundles {
     /** @type {LH.Artifacts.Bundle[]} */
     const bundles = [];
 
-    // Collate map, script, and network record.
+    // Collate map and script, compute file sizes.
     for (const SourceMap of SourceMaps) {
       if (!SourceMap.map) continue;
       const {scriptUrl, map: rawMap} = SourceMap;
