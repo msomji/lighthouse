@@ -27,10 +27,7 @@ before_script:
   - export CHROME_PATH="$(which google-chrome-stable)"
   # Print out the Chrome version so we know what we're working with
   - google-chrome-stable --version
-  - head -4 lighthouse-core/lib/cdt/generated/SourceMap.js
   - yarn build-all
-  - head -4 lighthouse-core/lib/cdt/generated/SourceMap.js
-  - git diff --exit-code
 script:
   # Fail if any changes were written to source files (ex, from: build/build-cdt-lib.js).
   - git diff --exit-code
