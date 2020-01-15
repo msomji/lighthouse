@@ -7,7 +7,6 @@
 set -ex
 
 DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# git3po assumes relative config paths from cwd.
 cd "$DIRNAME"
 
 npm install -g git3po
