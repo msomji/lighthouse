@@ -112,7 +112,6 @@ module.exports = [
                 {value: {src: {value: 'http://localhost:10503/launcher-icon-1-5x.png'}}},
                 {value: {src: {value: 'http://localhost:10503/launcher-icon-2x.png'}}},
                 {value: {src: {value: 'http://localhost:10503/launcher-icon-3x.png'}}},
-                {value: {src: {value: 'http://localhost:10503/launcher-icon-4x.png'}}},
               ],
             },
           },
