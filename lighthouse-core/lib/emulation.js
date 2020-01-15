@@ -19,7 +19,7 @@ const MOTOG4_EMULATION_METRICS = {
   positionX: 0,
   positionY: 0,
   scale: 1,
-  deviceScaleFactor: 2.625, // ??
+  deviceScaleFactor: 3,
   screenOrientation: {
     angle: 0,
     type: 'portraitPrimary',
