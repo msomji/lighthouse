@@ -289,6 +289,9 @@ declare global {
         href: string
         text: string
         target: string
+        path: string
+        selector: string
+        nodeLabel: string
         outerHTML: string
       }
 

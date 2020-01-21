@@ -5,8 +5,7 @@
  */
 'use strict';
 
-const ExternalAnchorsAudit =
-  require('../../../audits/dobetterweb/external-anchors-use-rel-noopener.js');
+const ExternalAnchorsAudit = require('../../../audits/dobetterweb/external-anchors-use-rel-noopener.js');
 const assert = require('assert');
 
 const URL = 'https://google.com/test';
@@ -24,7 +23,6 @@ describe('External anchors use rel="noopener"', () => {
     });
     assert.equal(auditResult.score, 1);
     assert.equal(auditResult.details.items.length, 0);
-    assert.equal(auditResult.details.items.length, 0);
   });
 
   it('passes when links have a valid rel', () => {
@@ -38,7 +36,6 @@ describe('External anchors use rel="noopener"', () => {
     });
     assert.equal(auditResult.score, 1);
     assert.equal(auditResult.details.items.length, 0);
-    assert.equal(auditResult.details.items.length, 0);
   });
 
   it('passes when links do not use target=_blank', () => {
@@ -50,7 +47,6 @@ describe('External anchors use rel="noopener"', () => {
       URL: {finalUrl: URL},
     });
     assert.equal(auditResult.score, 1);
-    assert.equal(auditResult.details.items.length, 0);
     assert.equal(auditResult.details.items.length, 0);
   });
 
@@ -88,18 +84,15 @@ describe('External anchors use rel="noopener"', () => {
     });
     assert.equal(auditResult.score, 0);
     assert.equal(auditResult.details.items.length, 2);
-    assert.equal(auditResult.details.items.length, 2);
+    assert.equal(auditResult.details.items[0].node.type, 'node');
   });
 
   it('fails when links have no href attribute', () => {
     const auditResult = ExternalAnchorsAudit.audit({
-      AnchorElements: [
-        {href: '', target: '_blank', rel: ''},
-      ],
+      AnchorElements: [{href: '', target: '_blank', rel: ''}],
       URL: {finalUrl: URL},
     });
     assert.equal(auditResult.score, 0);
-    assert.equal(auditResult.details.items.length, 1);
     assert.equal(auditResult.details.items.length, 1);
     assert.ok(auditResult.warnings.length, 'includes warning');
   });
@@ -115,7 +108,6 @@ describe('External anchors use rel="noopener"', () => {
       URL: {finalUrl: URL},
     });
     assert.equal(auditResult.score, 0);
-    assert.equal(auditResult.details.items.length, 4);
     assert.equal(auditResult.details.items.length, 4);
     assert.equal(auditResult.warnings.length, 4);
   });

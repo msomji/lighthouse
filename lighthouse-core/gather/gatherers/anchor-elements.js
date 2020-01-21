@@ -37,13 +37,23 @@ function collectAnchorElements() {
   return anchorElements.map(node => {
     // @ts-ignore - put into scope via stringification
     const outerHTML = getOuterHTMLSnippet(node); // eslint-disable-line no-undef
+    // @ts-ignore - put into scope via stringification
+    const nodePath = getNodePath(node); // eslint-disable-line no-undef
+    // @ts-ignore - getNodeSelector put into scope via stringification
+    const selector = getNodeSelector(node); // eslint-disable-line no-undef
+    // @ts-ignore - getNodeLabel put into scope via stringification
+    const nodeLabel = getNodeLabel(node); // eslint-disable-line no-undef
 
     if (node instanceof HTMLAnchorElement) {
       return {
         href: node.href,
+        // TODO(blasingame): Deprecate text in favor of nodeLabel
         text: node.innerText, // we don't want to return hidden text, so use innerText
         rel: node.rel,
         target: node.target,
+        path: nodePath,
+        selector,
+        nodeLabel,
         outerHTML,
       };
     }
@@ -53,6 +63,9 @@ function collectAnchorElements() {
       text: node.textContent || '',
       rel: '',
       target: node.target.baseVal || '',
+      path: nodePath,
+      selector,
+      nodeLabel,
       outerHTML,
     };
   });
@@ -68,6 +81,9 @@ class AnchorElements extends Gatherer {
     const expression = `(() => {
       ${pageFunctions.getOuterHTMLSnippetString};
       ${pageFunctions.getElementsInDocumentString};
+      ${pageFunctions.getNodePathString};
+      ${pageFunctions.getNodeSelectorString};
+      ${pageFunctions.getNodeLabelString};
 
       return (${collectAnchorElements})();
     })()`;
