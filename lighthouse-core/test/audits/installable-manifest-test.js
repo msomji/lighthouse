@@ -135,6 +135,22 @@ describe('PWA: webapp install banner audit', () => {
         assert.strictEqual(details.hasIconsAtLeast144px, false);
       });
     });
+
+    it('fails if page had no icons in the manifest', () => {
+      const artifacts = generateMockArtifacts();
+      artifacts.WebAppManifest.installabilityErrors = ['Downloaded icon was empty or corrupted'];
+      const context = generateMockAuditContext();
+
+      return InstallableManifestAudit.audit(artifacts, context).then(result => {
+        assert.strictEqual(result.score, 0);
+        assert.ok(result.explanation.includes('failed to be fetched'), result.explanation);
+
+        const details = result.details.items[0];
+        assert.strictEqual(details.failures.length, 1, details.failures);
+        assert.strictEqual(details.hasStartUrl, true);
+        assert.strictEqual(details.hasIconsAtLeast144px, true);
+      });
+    });
   });
 
   it('fails if icons were present, but no valid PNG present', () => {
