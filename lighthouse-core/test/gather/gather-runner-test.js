@@ -1642,7 +1642,7 @@ describe('GatherRunner', function() {
       passContext = {
         url: 'https://example.com/index.html',
         baseArtifacts: {},
-        driver: fakeDriver,
+        driver,
       };
     });
 
@@ -1654,17 +1654,11 @@ describe('GatherRunner', function() {
     });
 
     it('should parse the manifest when found', async () => {
-      // TODO: https://github.com/GoogleChrome/lighthouse/pull/10136 will allow
-      // this to be mocked soon.
-      passContext.driver = {
-        ...fakeDriver,
-        sendCommand: () => Promise.resolve([]),
-      };
-
       const manifest = {name: 'App'};
-      const getAppManifest = jest.spyOn(fakeDriver, 'getAppManifest');
-      // @ts-ignore: Some terrible @types/jest bug lies here.
-      getAppManifest.mockResolvedValueOnce({data: JSON.stringify(manifest), url: MANIFEST_URL});
+      connectionStub.sendCommand
+        .mockResponse('Page.getAppManifest', {data: JSON.stringify(manifest), url: MANIFEST_URL})
+        .mockResponse('Page.getInstallabilityErrors', {errors: []});
+
       const result = await GatherRunner.getWebAppManifest(passContext);
       expect(result && result.manifest).toHaveProperty('raw', JSON.stringify(manifest));
       expect(result && result.manifest.value).toMatchObject({
