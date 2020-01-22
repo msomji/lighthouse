@@ -1654,7 +1654,7 @@ describe('GatherRunner', function() {
     });
 
     it('should parse the manifest when found', async () => {
-      // https://github.com/GoogleChrome/lighthouse/pull/10136 will allow
+      // TODO: https://github.com/GoogleChrome/lighthouse/pull/10136 will allow
       // this to be mocked soon.
       passContext.driver = {
         ...fakeDriver,
